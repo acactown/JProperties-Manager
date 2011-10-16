@@ -1,0 +1,10 @@
+JProperties Manager is a simple Netbeans Platform desktop application for manage Java *.properties files located in different local or remote locations.
+
+Some of the features of JProperties Manager include:
+
+	-> View local *.properties files or from clipboard
+	-> Display remote *.properties files via: SSH, FTP, S3 Bucket, some others...
+	-> Edit and Save these *.properties files
+	-> Show the differences between these *.properties files
+
+Any contribution to the project is and will always welcome!
