@@ -3,7 +3,6 @@ package org.acactown.jpropertiesmanager.view;
 import java.awt.Window;
 import org.acactown.jpropertiesmanager.controller.MainController;
 import org.acactown.jpropertiesmanager.model.MainModel;
-import org.apache.log4j.Logger;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.ApplicationContext;
 import org.jdesktop.application.SingleFrameApplication;
@@ -15,8 +14,6 @@ import org.jdesktop.application.SingleFrameApplication;
  * @author acactown - acactown@gmail.com
  */
 public class MainApp extends SingleFrameApplication {
-
-    private static final Logger LOG = Logger.getLogger(MainApp.class);
 
     /**
      * At startup create and show the main frame of the application.
