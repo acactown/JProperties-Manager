@@ -6,7 +6,9 @@
             <name>JProperties-Manager</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <source-roots>
-                <root id="src.dir"/>
+                <root id="src.model.dir" name="Model"/>
+                <root id="src.controller.dir" name="Controller"/>
+                <root id="src.view.dir" name="View"/>
             </source-roots>
             <test-roots/>
         </data>
