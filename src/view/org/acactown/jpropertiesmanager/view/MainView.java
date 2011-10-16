@@ -25,11 +25,14 @@ public class MainView extends FrameView {
     public MainView(SingleFrameApplication app) {
         super(app);
         initComponents();
-        initMonitor();
+        initStatusBar();
+        initTaskMonitor();
     }
 
-    private void initMonitor() {
-        // status bar initialization - message timeout, idle icon and busy animation, etc
+    /**
+     * Status bar initialization - message timeout, idle icon and busy animation, etc
+     */
+    private void initStatusBar() {
         ResourceMap resourceMap = getResourceMap();
         int messageTimeout = resourceMap.getInteger("StatusBar.messageTimeout");
         messageTimer = new Timer(messageTimeout, new ActionListener() {
@@ -56,7 +59,12 @@ public class MainView extends FrameView {
         statusAnimationLabel.setIcon(idleIcon);
         progressBar.setVisible(false);
 
-        // connecting action tasks to status bar via TaskMonitor
+    }
+    
+    /**
+     * Connecting action tasks to status bar via TaskMonitor
+     */
+    private void initTaskMonitor(){
         TaskMonitor taskMonitor = new TaskMonitor(getApplication().getContext());
         taskMonitor.addPropertyChangeListener(new PropertyChangeListener() {
 
