@@ -1,5 +1,7 @@
 package org.acactown.jpropertiesmanager.view;
 
+import org.acactown.jpropertiesmanager.controller.MainController;
+import org.acactown.jpropertiesmanager.model.MainModel;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
@@ -38,6 +40,8 @@ public class MainApp extends SingleFrameApplication {
      * Main method launching the application.
      */
     public static void main(String[] args) {
+        MainModel.main(args);
+        MainController.main(args);
         launch(MainApp.class, args);
     }
 }
