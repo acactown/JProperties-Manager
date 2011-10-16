@@ -3,7 +3,8 @@ package org.acactown.jpropertiesmanager.model;
 import java.util.Random;
 
 /**
- *
+ * Default Id for all Model Classes
+ * 
  * @version 1.0
  * @author acactown - acactown@gmail.com
  */

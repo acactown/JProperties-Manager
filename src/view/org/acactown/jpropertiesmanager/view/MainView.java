@@ -7,13 +7,15 @@ import org.jdesktop.application.FrameView;
 import org.jdesktop.application.TaskMonitor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 /**
- * The application's main frame.
+ * The Application's main frame.
  * 
  * @version 1.0
  * @author acactown - acactown@gmail.com
@@ -56,10 +58,10 @@ public class MainView extends FrameView {
 
         // connecting action tasks to status bar via TaskMonitor
         TaskMonitor taskMonitor = new TaskMonitor(getApplication().getContext());
-        taskMonitor.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        taskMonitor.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+            public void propertyChange(PropertyChangeEvent evt) {
                 String propertyName = evt.getPropertyName();
                 if ("started".equals(propertyName)) {
                     if (!busyIconTimer.isRunning()) {

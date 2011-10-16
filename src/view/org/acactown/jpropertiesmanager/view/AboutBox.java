@@ -1,15 +1,18 @@
 package org.acactown.jpropertiesmanager.view;
 
+import java.awt.Frame;
+import javax.swing.JDialog;
 import org.jdesktop.application.Action;
 
 /**
+ * Dialog for Application About
  * 
  * @version 1.0
  * @author acactown - acactown@gmail.com
  */
-public class AboutBox extends javax.swing.JDialog {
+public class AboutBox extends JDialog {
 
-    public AboutBox(java.awt.Frame parent) {
+    public AboutBox(Frame parent) {
         super(parent);
         initComponents();
         getRootPane().setDefaultButton(closeButton);

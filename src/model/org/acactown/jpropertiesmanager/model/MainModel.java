@@ -1,21 +1,28 @@
 package org.acactown.jpropertiesmanager.model;
 
-import org.apache.log4j.PropertyConfigurator;
+import org.jdesktop.application.ApplicationContext;
 
 /**
- *
+ * Main for Model Module
+ * 
  * @version 1.0
  * @author acactown - acactown@gmail.com
  */
 public class MainModel {
-    
-    public static final String LOG4J_PROPERTIES_PATH = "org/acactown/jpropertiesmanager/model/resources/log4j.properties";
-    
+
     /**
+     * Startup Model Module
      * 
-     * @param args Maybe the command line arguments
+     * @param context 
      */
-    public static void main(String[] args) {
-        PropertyConfigurator.configure(ClassLoader.getSystemResource(LOG4J_PROPERTIES_PATH));
+    public static void startup(ApplicationContext context) {
+    }
+
+    /**
+     * Shutdown Model Module
+     * 
+     * @param context 
+     */
+    public static void shutdown(ApplicationContext context) {
     }
 }
