@@ -8,20 +8,20 @@ import java.util.Properties;
  * @author acactown - acactown@gmail.com
  */
 interface PropertyFileOperations {
-    
-    public boolean canSave();
-    
-    public boolean canCopyToClipboard();
-    
-    public boolean canLoad();
-    
-    public boolean canEdit();
-    
-    public boolean save();
-    
-    public boolean copyToClipboard();
-    
-    public boolean load();
-    
-    public void edit(Properties properties);
+
+    boolean canSave();
+
+    boolean canCopyToClipboard();
+
+    boolean canLoad();
+
+    boolean canEdit();
+
+    boolean save();
+
+    boolean copyToClipboard();
+
+    boolean load();
+
+    void edit( final Properties properties );
 }

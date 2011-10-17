@@ -10,47 +10,62 @@ import org.acactown.jpropertiesmanager.model.source.Source;
 abstract class RemoteSource extends Source {
 
     private String host;
-    private int port;
+    private Integer port;
     private String username;
     private String authorization;
-    
-    public RemoteSource(String host, int port, String username, String authorization, String name, String comment) {
-        super(name, comment);
+    private SecurityType securityType;
+
+    public RemoteSource() {
+    }
+
+    public RemoteSource( final String host , final Integer port , final String username ,
+                         final String authorization , final SecurityType securityType , final String name ,
+                         final String comment ) {
+        super( name , comment );
         this.host = host;
         this.port = port;
         this.username = username;
         this.authorization = authorization;
+        this.securityType = securityType;
     }
 
-    public String getHost() {
+    public final String getHost() {
         return host;
     }
 
-    public void setHost(String host) {
+    public final void setHost( final String host ) {
         this.host = host;
     }
 
-    public String getAuthorization() {
+    public final String getAuthorization() {
         return authorization;
     }
 
-    public void setAuthorization(String authorization) {
+    public final void setAuthorization( final String authorization ) {
         this.authorization = authorization;
     }
 
-    public int getPort() {
+    public final Integer getPort() {
         return port;
     }
 
-    public void setPort(int port) {
+    public final void setPort( final Integer port ) {
         this.port = port;
     }
 
-    public String getUsername() {
+    public final String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public final void setUsername( final String username ) {
         this.username = username;
+    }
+
+    public final SecurityType getSecurityType() {
+        return securityType;
+    }
+
+    public final void setSecurityType( final SecurityType securityType ) {
+        this.securityType = securityType;
     }
 }
