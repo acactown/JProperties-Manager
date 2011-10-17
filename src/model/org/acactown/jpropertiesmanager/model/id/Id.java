@@ -1,4 +1,4 @@
-package org.acactown.jpropertiesmanager.model;
+package org.acactown.jpropertiesmanager.model.id;
 
 import java.util.Random;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -13,6 +13,7 @@ public class Id {
 
     @XmlAttribute
     private final String id;
+    private final int HASH = 5;
 
     public Id() {
         id = Integer.toString( new Random().nextInt( Integer.MAX_VALUE ) );
@@ -30,8 +31,8 @@ public class Id {
         if ( getClass() != obj.getClass() ) {
             return false;
         }
-        final Id other = ( Id ) obj;
-        if ( ( this.id == null ) ? ( other.getId() != null ) : !this.id.equals( other.getId() ) ) {
+        final Id OTHER = ( Id ) obj;
+        if ( ( this.id == null ) ? ( OTHER.getId() != null ) : !this.id.equals( OTHER.getId() ) ) {
             return false;
         }
 
@@ -40,7 +41,6 @@ public class Id {
 
     @Override
     public final int hashCode() {
-        int hash = 5;
-        return hash;
+        return HASH;
     }
 }

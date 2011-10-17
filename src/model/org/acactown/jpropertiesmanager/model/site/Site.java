@@ -1,7 +1,7 @@
 package org.acactown.jpropertiesmanager.model.site;
 
-import org.acactown.jpropertiesmanager.model.Id;
-import org.acactown.jpropertiesmanager.model.property.PropertyFile;
+import org.acactown.jpropertiesmanager.model.id.Id;
+import org.acactown.jpropertiesmanager.model.property.PropertiesFile;
 import java.util.List;
 
 /**
@@ -13,7 +13,7 @@ public final class Site extends Id {
 
     private String name;
     private String comment;
-    private List<PropertyFile> propertyFiles;
+    private List<PropertiesFile> propertiesFiles;
 
     @Override
     public Site clone() {

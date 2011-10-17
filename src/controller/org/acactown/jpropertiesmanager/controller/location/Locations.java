@@ -1,4 +1,4 @@
-package org.acactown.jpropertiesmanager.controller.source;
+package org.acactown.jpropertiesmanager.controller.location;
 
 import java.awt.event.ComponentEvent;
 import org.acactown.jpropertiesmanager.model.tab.Tab;
@@ -8,11 +8,11 @@ import org.acactown.jpropertiesmanager.model.tab.Tab;
  * @version 1.0
  * @author acactown - acactown@gmail.com
  */
-public final class Sources extends Tab {
+public final class Locations extends Tab {
 
     private static final long serialVersionUID = 7678477591330994375L;
 
-    public Sources() {
+    public Locations() {
         super( "" , "" );
         initComponents();
     }
@@ -39,6 +39,6 @@ public final class Sources extends Tab {
 
     @Override
     public void onShow( final ComponentEvent event ) {
-        System.out.println( "ENTRE" );
+        throw new UnsupportedOperationException( "Not supported yet." );
     }
 }

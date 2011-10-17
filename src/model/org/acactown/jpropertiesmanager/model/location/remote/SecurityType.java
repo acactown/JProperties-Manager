@@ -1,4 +1,4 @@
-package org.acactown.jpropertiesmanager.model.source.remote;
+package org.acactown.jpropertiesmanager.model.location.remote;
 
 /**
  * @version 1.0

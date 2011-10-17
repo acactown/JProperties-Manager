@@ -1,13 +1,13 @@
-package org.acactown.jpropertiesmanager.model.source.remote;
+package org.acactown.jpropertiesmanager.model.location.remote;
 
-import org.acactown.jpropertiesmanager.model.source.Source;
+import org.acactown.jpropertiesmanager.model.location.Location;
 
 /**
  *
  * @version 1.0
  * @author acactown - acactown@gmail.com
  */
-abstract class RemoteSource extends Source {
+abstract class RemoteLocation extends Location {
 
     private String host;
     private Integer port;
@@ -15,12 +15,12 @@ abstract class RemoteSource extends Source {
     private String authorization;
     private SecurityType securityType;
 
-    public RemoteSource() {
+    public RemoteLocation() {
     }
 
-    public RemoteSource( final String host , final Integer port , final String username ,
-                         final String authorization , final SecurityType securityType , final String name ,
-                         final String comment ) {
+    public RemoteLocation( final String host , final Integer port , final String username ,
+                           final String authorization , final SecurityType securityType , final String name ,
+                           final String comment ) {
         super( name , comment );
         this.host = host;
         this.port = port;

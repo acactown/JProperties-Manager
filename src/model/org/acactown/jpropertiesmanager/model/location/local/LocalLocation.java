@@ -1,6 +1,6 @@
-package org.acactown.jpropertiesmanager.model.source.local;
+package org.acactown.jpropertiesmanager.model.location.local;
 
-import org.acactown.jpropertiesmanager.model.source.Source;
+import org.acactown.jpropertiesmanager.model.location.Location;
 import org.apache.log4j.Logger;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,16 +14,16 @@ import java.util.Properties;
  * @version 1.0
  * @author acactown - acactown@gmail.com
  */
-public final class LocalSource extends Source {
+public final class LocalLocation extends Location {
 
     private String path;
     private static final int BUFFER_SIZE = 1024;
-    private static final Logger LOG = Logger.getLogger( LocalSource.class );
+    private static final Logger LOG = Logger.getLogger( LocalLocation.class );
 
-    public LocalSource() {
+    public LocalLocation() {
     }
 
-    public LocalSource( final String path , final String name , final String comment ) {
+    public LocalLocation( final String path , final String name , final String comment ) {
         super( name , comment );
         this.path = path;
     }
@@ -37,7 +37,7 @@ public final class LocalSource extends Source {
     }
 
     @Override
-    protected Properties reload( final String file ) {
+    public Properties loadProperties( final String file ) {
         LOG.debug( "Loading properties from file [" + file + "]" );
         Properties props = new Properties();
         try {
@@ -52,7 +52,7 @@ public final class LocalSource extends Source {
     }
 
     @Override
-    public boolean save( final String file , final Properties properties ) {
+    public boolean saveProperties( final String file , final Properties properties ) {
         LOG.debug( "Saving properties in file [" + file + "]" );
         try {
             if ( !new File( file ).exists() ) {
@@ -78,7 +78,7 @@ public final class LocalSource extends Source {
     }
 
     @Override
-    public String getNameWithSource() {
+    public String getNameWithLocation() {
         return "Local - " + getName();
     }
 }

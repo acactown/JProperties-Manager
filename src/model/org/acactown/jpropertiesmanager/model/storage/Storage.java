@@ -1,7 +1,7 @@
 package org.acactown.jpropertiesmanager.model.storage;
 
 import org.acactown.jpropertiesmanager.controller.MainApp;
-import org.acactown.jpropertiesmanager.model.Id;
+import org.acactown.jpropertiesmanager.model.id.Id;
 import org.apache.log4j.Logger;
 import java.io.File;
 import java.io.FileOutputStream;

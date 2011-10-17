@@ -1,39 +1,39 @@
 package org.acactown.jpropertiesmanager.model.property;
 
-import org.acactown.jpropertiesmanager.model.Id;
-import org.acactown.jpropertiesmanager.model.source.Source;
+import org.acactown.jpropertiesmanager.model.id.Id;
+import org.acactown.jpropertiesmanager.model.location.Location;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
+import java.util.Collections;
 import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
- *
  *
  * @version 1.0
  * @author acactown - acactown@gmail.com
  */
-public abstract class PropertyFile extends Id implements PropertyFileOperations , ClipboardOwner {
+public abstract class PropertiesFile extends Id implements PropertiesFileOperations , ClipboardOwner {
 
     private String name;
-    private final String path;
     private Properties properties;
-    private final Source source;
+    private final String path;
+    private final Location location;
 
-    public PropertyFile( final Source source , final String path , final String name ) throws Exception {
-        this.source = source;
+    public PropertiesFile( final Location location , final String path , final String name ) throws Exception {
+        this.location = location;
         this.path = path;
         this.name = name;
-        properties = source.load( path );
-
+        properties = location.loadProperties( path );
         if ( properties == null ) {
             StringBuilder builder = new StringBuilder();
-
             builder.append( "The file [" ).append( path ).append( "]" );
-            builder.append( " from source [" ).append( source.getNameWithSource() ).append( "]" );
+            builder.append( " from Location [" ).append( location.getNameWithLocation() ).append( "]" );
             builder.append( " could not be loaded" );
 
             throw new Exception( builder.toString() );
@@ -56,8 +56,8 @@ public abstract class PropertyFile extends Id implements PropertyFileOperations 
         return properties;
     }
 
-    public final Source getSource() {
-        return source;
+    public final Location getLocation() {
+        return location;
     }
 
     @Override
@@ -66,17 +66,14 @@ public abstract class PropertyFile extends Id implements PropertyFileOperations 
     }
 
     @Override
-    public final boolean copyToClipboard() {
-        if ( canCopyToClipboard() ) {
+    public final boolean copyPropertiesToClipboard() {
+        if ( canCopyPropertiesToClipboard() ) {
             StringBuilder builder = new StringBuilder();
-
             for ( Entry<Object , Object> entry : properties.entrySet() ) {
                 builder.append( entry.getKey() ).append( " = " ).append( entry.getValue() ).append( "\n" );
             }
-
             StringSelection stringSelection = new StringSelection( builder.toString() );
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-
             clipboard.setContents( stringSelection , this );
 
             return true;
@@ -86,14 +83,15 @@ public abstract class PropertyFile extends Id implements PropertyFileOperations 
     }
 
     @Override
-    public final boolean load() {
-        if ( canLoad() ) {
-            Properties tmpProperties = source.load( path );
-
+    public final boolean loadProperties() {
+        if ( canLoadProperties() ) {
+            Properties tmpProperties = location.loadProperties( path );
             if ( tmpProperties == null ) {
                 return false;
             } else {
-                properties = tmpProperties;
+                properties.clear();
+                properties.putAll( tmpProperties );
+                sortProperties();
 
                 return true;
             }
@@ -103,19 +101,37 @@ public abstract class PropertyFile extends Id implements PropertyFileOperations 
     }
 
     @Override
-    public final boolean save() {
-        if ( canSave() ) {
-            return source.save( path , properties );
+    public final boolean saveProperties() {
+        if ( canSaveProperties() ) {
+            return location.saveProperties( path , properties );
         } else {
             throw new UnsupportedOperationException( "Not supported." );
         }
     }
 
     @Override
-    public final void edit( final Properties editProperties ) {
-        if ( canEdit() ) {
+    public final void editProperties( final Properties editProperties ) {
+        if ( canEditProperties() ) {
             properties.clear();
-            editProperties.putAll( properties );
+            properties.putAll( editProperties );
+        }
+    }
+
+    @Override
+    public final void sortProperties() {
+        if ( properties != null ) {
+            Properties sortedProperties = new Properties() {
+
+                private static final long serialVersionUID = -8604519353989867555L;
+
+                @Override
+                public Set<Object> keySet() {
+                    return Collections.unmodifiableSet( new TreeSet<Object>( super.keySet() ) );
+                }
+            };
+            sortedProperties.putAll( properties );
+            properties.clear();
+            properties.putAll( sortedProperties );
         }
     }
 }
