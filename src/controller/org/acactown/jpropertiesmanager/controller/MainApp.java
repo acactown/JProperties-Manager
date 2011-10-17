@@ -20,24 +20,23 @@ import java.util.List;
 public final class MainApp extends SingleFrameApplication {
 
     private MainView mainView;
-    private final String LOG4J_PROPERTIES_PATH =
+    private final String LOG4J_PROPERTIES =
                          "org/acactown/jpropertiesmanager/controller/resources/log4j.properties";
-    private final String SESSIONS_DIRECTORY = WORKING_DIRECTORY + File.separator + "sessions";
-    private final String LOG_DIRECTORY = WORKING_DIRECTORY + File.separator + "logs";
-    public static final String WORKING_DIRECTORY = System.getProperty( "user.home" ) + File.separator
+    private final String SESSION_DIRECTORY = WORK_DIRECTORY + File.separator + "session";
+    private final String LOG_DIRECTORY = WORK_DIRECTORY + File.separator + "log";
+    public static final String WORK_DIRECTORY = System.getProperty( "user.home" ) + File.separator
             + ".JProperties-Manager";
-    public static final String TMP_DIRECTORY = WORKING_DIRECTORY + File.separator + "temp";
-    public static final String CONF_DIRECTORY = WORKING_DIRECTORY + File.separator + "conf";
+    public static final String TEMP_DIRECTORY = WORK_DIRECTORY + File.separator + "temp";
+    public static final String STORAGE_DIRECTORY = WORK_DIRECTORY + File.separator + "storage";
 
     /**
      * At startup create and show the main frame of the application.
      */
     @Override
     protected void startup() {
-        checkWorkingDirectories();
+        checkDirectories();
         loadLogProperties();
-        loadSavedConfiguration();
-        getContext().getLocalStorage().setDirectory( new File( SESSIONS_DIRECTORY ) );
+        getContext().getLocalStorage().setDirectory( new File( SESSION_DIRECTORY ) );
         mainView = new MainView( this , new ArrayList<Tab>() );
         show( mainView );
     }
@@ -47,7 +46,7 @@ public final class MainApp extends SingleFrameApplication {
      */
     @Override
     protected void shutdown() {
-        deleteDirectory( new File( TMP_DIRECTORY ) );
+        deleteDirectory( new File( TEMP_DIRECTORY ) );
         super.shutdown();
     }
 
@@ -75,30 +74,22 @@ public final class MainApp extends SingleFrameApplication {
     private void loadLogProperties() {
         System.setProperty( "file.encoding" , "UTF-8" );
         System.setProperty( "org.acactown.jpropertiesmamager.log.directory" , LOG_DIRECTORY );
-        PropertyConfigurator.configure( ClassLoader.getSystemResource( LOG4J_PROPERTIES_PATH ) );
+        PropertyConfigurator.configure( ClassLoader.getSystemResource( LOG4J_PROPERTIES ) );
     }
 
     /**
      * Check if working directories exist.
      */
-    public void checkWorkingDirectories() {
-        List<String> directories = Arrays.asList( WORKING_DIRECTORY , CONF_DIRECTORY , TMP_DIRECTORY ,
-                                                  SESSIONS_DIRECTORY );
+    public void checkDirectories() {
+        List<String> directories = Arrays.asList( WORK_DIRECTORY , STORAGE_DIRECTORY , TEMP_DIRECTORY ,
+                                                  SESSION_DIRECTORY );
         File tmpDirectory;
-
         for ( String directory : directories ) {
             tmpDirectory = new File( directory );
-
             if ( !tmpDirectory.exists() ) {
                 tmpDirectory.mkdir();
             }
         }
-    }
-
-    /**
-     * Load Saved or Default Configuration.
-     */
-    private void loadSavedConfiguration() {
     }
 
     /**
@@ -110,11 +101,8 @@ public final class MainApp extends SingleFrameApplication {
     private boolean deleteDirectory( final File directory ) {
         if ( directory.isDirectory() ) {
             String[] children = directory.list();
-
             for ( int i = 0, max = children.length ; i < max ; i++ ) {
-                boolean success = deleteDirectory( new File( directory , children[i] ) );
-
-                if ( !success ) {
+                if ( !deleteDirectory( new File( directory , children[i] ) ) ) {
                     return false;
                 }
             }
@@ -125,6 +113,7 @@ public final class MainApp extends SingleFrameApplication {
 
     /**
      * Main method launching the application.
+     *
      * @param args Maybe son arguments for command line
      */
     public static void main( final String[] args ) {

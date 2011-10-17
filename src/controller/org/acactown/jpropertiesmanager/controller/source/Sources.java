@@ -1,4 +1,4 @@
-package org.acactown.jpropertiesmanager.controller.sources;
+package org.acactown.jpropertiesmanager.controller.source;
 
 import java.awt.event.ComponentEvent;
 import org.acactown.jpropertiesmanager.model.tab.Tab;

@@ -1,10 +1,10 @@
-package org.acactown.jpropertiesmanager.controller.sources;
+package org.acactown.jpropertiesmanager.controller.source;
 
 import org.acactown.jpropertiesmanager.model.source.local.LocalSource;
 import org.acactown.jpropertiesmanager.model.source.remote.FTPSource;
 import org.acactown.jpropertiesmanager.model.source.remote.S3Source;
 import org.acactown.jpropertiesmanager.model.source.remote.SSHSource;
-import org.acactown.jpropertiesmanager.model.store.Store;
+import org.acactown.jpropertiesmanager.model.storage.Storage;
 import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlAccessorType ( XmlAccessType.FIELD )
 @XmlRootElement ( name = "sources" )
-public final class SourceStore extends Store {
+public final class SourceStorage extends Storage {
 
     @XmlElement ( name = "ftp" )
     private ArrayList<FTPSource> ftpSources;
@@ -29,17 +29,17 @@ public final class SourceStore extends Store {
     private ArrayList<SSHSource> sshSources;
     @XmlElement ( name = "local" )
     private LocalSource localSource;
-    private static final Logger LOG = Logger.getLogger( SourceStore.class );
+    private static final Logger LOG = Logger.getLogger( SourceStorage.class );
 
-    private SourceStore() {
+    private SourceStorage() {
     }
 
-    public synchronized static SourceStore getInstance() {
+    public synchronized static SourceStorage getInstance() {
         if ( instance == null ) {
-            instance = new SourceStore();
+            instance = new SourceStorage();
         }
 
-        return ( SourceStore ) instance;
+        return ( SourceStorage ) instance;
     }
 
     public LocalSource getLocalSource() {

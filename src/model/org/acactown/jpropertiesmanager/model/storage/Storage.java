@@ -1,4 +1,4 @@
-package org.acactown.jpropertiesmanager.model.store;
+package org.acactown.jpropertiesmanager.model.storage;
 
 import org.acactown.jpropertiesmanager.controller.MainApp;
 import org.acactown.jpropertiesmanager.model.Id;
@@ -17,22 +17,22 @@ import javax.xml.bind.Unmarshaller;
  * @version 1.0
  * @author acactown - acactown@gmail.com
  */
-public abstract class Store extends Id {
+public abstract class Storage extends Id {
 
     protected static Object instance = null;
-    private final String STORE_NAME = getClass().getSimpleName();
-    private final String STORE_FILE = MainApp.CONF_DIRECTORY + File.separator + STORE_NAME + ".xml";
-    private static final Logger LOG = Logger.getLogger( Store.class );
+    private final String STORAGE_NAME = getClass().getSimpleName();
+    private final String STORAGE_FILE = MainApp.STORAGE_DIRECTORY + File.separator + STORAGE_NAME + ".xml";
+    private static final Logger LOG = Logger.getLogger( Storage.class );
 
     /**
-     * Load Store Config from disk.
+     * Load Storage from disk.
      *
-     * @return <code>TRUE</code> if Config was successful loaded, <code>FALSE</code> otherwise
+     * @return <code>TRUE</code> if Storage was successful loaded, <code>FALSE</code> otherwise
      */
-    public final boolean loadConfig() {
+    public final boolean loadStorage() {
         boolean wasLoaded = false;
         try {
-            File config = new File( STORE_FILE );
+            File config = new File( STORAGE_FILE );
             if(!config.exists()){
                 return wasLoaded;
             }
@@ -41,24 +41,24 @@ public abstract class Store extends Id {
             instance = unmarshaller.unmarshal( new FileReader( config ) );
             wasLoaded = true;
         } catch ( Exception ex ) {
-            LOG.error( "Error loading saved config for Store [" + STORE_NAME + "]" , ex );
+            LOG.error( "Error loading saved config for Storage [" + STORAGE_NAME + "]" , ex );
         }
 
         return wasLoaded;
     }
 
     /**
-     * Save Store Config to disk.
+     * Save Storage to disk.
      *
-     * @return <code>TRUE</code> if Config was successful saved, <code>FALSE</code> otherwise
+     * @return <code>TRUE</code> if Storage was successful saved, <code>FALSE</code> otherwise
      */
-    public final boolean saveConfig() {
+    public final boolean saveStorage() {
         boolean wasSaved = false;
         Writer writter = null;
         try {
-            File config = new File( STORE_FILE );
+            File config = new File( STORAGE_FILE );
             if(!config.exists()){
-                MainApp.getInstance().checkWorkingDirectories();
+                MainApp.getInstance().checkDirectories();
                 config.createNewFile();
             }
             writter = new OutputStreamWriter( new FileOutputStream( config ) );
@@ -68,7 +68,7 @@ public abstract class Store extends Id {
             marshaller.marshal( this , writter );
             wasSaved = true;
         } catch ( Exception ex ) {
-            LOG.error( "Error writing config for Store [" + STORE_NAME + "]" , ex );
+            LOG.error( "Error writing config for Storage [" + STORAGE_NAME + "]" , ex );
         } finally {
             if ( writter != null ) {
                 try {
